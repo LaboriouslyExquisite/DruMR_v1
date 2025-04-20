@@ -1,83 +1,136 @@
-
-using UnityEngine;
-using TMPro;  // TextMeshPro namespace
-using System.Collections;  // Add this for IEnumerator support
+﻿using UnityEngine;
+using TMPro;
+using System.Collections;
 
 public class MenuManager : MonoBehaviour
 {
+    [Header("UI Canvases")]
     public GameObject mainMenuCanvas;
     public GameObject selectSongCanvas;
-    public GameObject metricMenuCanvas;  // Metric menu canvas
-    public GameObject drumObject;  // Drum object to reveal
-    public TextMeshProUGUI countdownText;  // UI Text for countdown (TextMeshPro)
+    public GameObject metricMenuCanvas;
+    public GameObject countdownCanvas;
+
+    [Header("Gameplay Objects")]
+    public GameObject drumObject;
+    public GameObject[] movableObjects; // Assign [BuildingBlock] HandGrab GameObjects
+    public GameObject acceptButton;
+
+    [Header("Countdown")]
+    public TextMeshProUGUI countdownText;
+
+    private void Start()
+    {
+        ShowMainMenu();
+    }
+
+    public void ShowMainMenu()
+    {
+        mainMenuCanvas.SetActive(true);
+        selectSongCanvas.SetActive(false);
+        metricMenuCanvas.SetActive(false);
+        countdownText.gameObject.SetActive(false);
+        acceptButton.SetActive(false);
+        drumObject.SetActive(false);
+        countdownCanvas.SetActive(false);
+
+
+        SetMovableObjectsActive(false);
+    }
 
     public void ShowSelectSongMenu()
     {
-        metricMenuCanvas.SetActive(false);
-        drumObject.SetActive(false);
-        countdownText.gameObject.SetActive(false);
         mainMenuCanvas.SetActive(false);
         selectSongCanvas.SetActive(true);
-    }
-
-    public void GoBackToMainMenu()
-    {
-        selectSongCanvas.SetActive(false);
-        mainMenuCanvas.SetActive(true);
         metricMenuCanvas.SetActive(false);
         drumObject.SetActive(false);
         countdownText.gameObject.SetActive(false);
+        acceptButton.SetActive(false);
+
+        SetMovableObjectsActive(false);
     }
 
-    public void StartTutorial()
+    public void StartPlacementMode()
     {
-        // Hide all UI menus before the tutorial starts
+        // Hide all menus
         mainMenuCanvas.SetActive(false);
         selectSongCanvas.SetActive(false);
         metricMenuCanvas.SetActive(false);
 
-        // Ensure countdown text and drum object are initially inactive
-        countdownText.gameObject.SetActive(false);
-        drumObject.SetActive(false);
-
-        // Reveal the drum and countdown text
+        // Show drums and accept button
         drumObject.SetActive(true);
-        countdownText.gameObject.SetActive(true);
-        
+        acceptButton.SetActive(true);
 
-        // Start the countdown from 3 to 1
+        // Enable placement mode
+        SetMovableObjectsActive(true);
+        countdownText.gameObject.SetActive(true);
+    }
+
+    public void AcceptPlacement()
+    {
+        acceptButton.SetActive(false);
+
+        // Lock objects in place (disable movement, reset color)
+        SetMovableObjectsActive(false);
+
         StartCoroutine(CountdownSequence());
     }
 
     private IEnumerator CountdownSequence()
     {
+        countdownCanvas.SetActive(true);
         countdownText.gameObject.SetActive(true);
 
-        // Countdown from 3 to 1
         for (int i = 3; i > 0; i--)
         {
             countdownText.text = i.ToString();
-            yield return new WaitForSeconds(1);  // Wait for 1 second before updating the countdown
+            yield return new WaitForSeconds(1f);
         }
 
         countdownText.text = "Go!";
-        yield return new WaitForSeconds(1);  // Wait for 1 second before starting the game
+        yield return new WaitForSeconds(1f);
 
-        for (int i = 10; i > 0; i--)
+        for (int i = 15; i > 0; i--)
         {
             countdownText.text = i.ToString();
-            yield return new WaitForSeconds(1);  // Wait for 1 second before updating the countdown
+            yield return new WaitForSeconds(1f);
         }
-        // Run the gameplay loop for 10 seconds
-        yield return new WaitForSeconds(7);
 
-        // Hide the countdown text and the drum after gameplay
+        yield return new WaitForSeconds(1f);
+
         countdownText.gameObject.SetActive(false);
+
+        // DO NOT hide drums here anymore
+        ShowMetricMenu();
+    }
+
+    public void ShowMetricMenu()
+    {
         drumObject.SetActive(false);
         mainMenuCanvas.SetActive(false);
         selectSongCanvas.SetActive(false);
-
-        // Transition to MetricMenu
         metricMenuCanvas.SetActive(true);
+    }
+
+    private void SetMovableObjectsActive(bool isActive)
+    {
+        foreach (GameObject obj in movableObjects)
+        {
+            obj.SetActive(true); // Make sure it's visible
+
+            var handGrab = obj.GetComponent<Oculus.Interaction.HandGrab.HandGrabInteractable>();
+            if (handGrab != null) handGrab.enabled = isActive;
+
+            // Optional: Change color to pink while movable
+            var renderer = obj.GetComponent<Renderer>();
+            if (renderer != null)
+            {
+                renderer.material.color = isActive ? Color.magenta : Color.white;
+            }
+        }
+    }
+
+    public void GoBackToMainMenu()
+    {
+        ShowMainMenu();
     }
 }

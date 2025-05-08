@@ -1,0 +1,2 @@
+C:\Users\Omar\Desktop\CSCI 5890-8890 Spatial AI\final_proj\DruMR_v1\MidiJackIntegrationProject\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\CMakeLists.txt
+C:\Users\Omar\Desktop\CSCI 5890-8890 Spatial AI\final_proj\DruMR_v1\MidiJackIntegrationProject\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\CMakeLists.txt

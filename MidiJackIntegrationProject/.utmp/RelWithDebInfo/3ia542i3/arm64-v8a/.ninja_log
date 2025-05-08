@@ -1,0 +1,10 @@
+# ninja log v5
+68	1965	7681165251583522	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	b087644f20d5dff6
+48	2018	7681165252105101	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	f2a28a161a5f2a99
+9	2023	7681165252245105	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	2f4f900dd39eddd8
+58	2098	7681165253008816	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	20124ae5f5662793
+37	2121	7681165253300233	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	d12b02070cb408e8
+17	2172	7681165253815804	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	d51dbba345470d60
+26	2397	7681165255917735	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	a1319b772d646dec
+0	2569	7681165257839708	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	ae97d0dda7c74bac
+2570	2805	7681165260613143	C:/Users/Omar/Desktop/CSCI 5890-8890 Spatial AI/final_proj/DruMR_v1/MidiJackIntegrationProject/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/3ia542i3/obj/arm64-v8a/libgame.so	9a5ee3d54754350e

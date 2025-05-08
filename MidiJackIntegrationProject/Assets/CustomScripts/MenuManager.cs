@@ -9,6 +9,8 @@ public class MenuManager : MonoBehaviour
     public GameObject selectSongCanvas;
     public GameObject metricMenuCanvas;
     public GameObject countdownCanvas;
+    public GameObject tempoPracticeCanvas;
+
 
     [Header("Gameplay Objects")]
     public GameObject drumObject;
@@ -129,8 +131,34 @@ public class MenuManager : MonoBehaviour
         }
     }
 
+    public void StartTempoPracticeMode()
+    {
+        mainMenuCanvas.SetActive(false);
+        selectSongCanvas.SetActive(false);
+        metricMenuCanvas.SetActive(false);
+        countdownCanvas.SetActive(false);
+        tempoPracticeCanvas.SetActive(true);
+
+        drumObject.SetActive(true);
+        acceptButton.SetActive(false);
+        SetMovableObjectsActive(false);
+
+    }
+
+
+
     public void GoBackToMainMenu()
     {
-        ShowMainMenu();
+        mainMenuCanvas.SetActive(true);
+        selectSongCanvas.SetActive(false);
+        metricMenuCanvas.SetActive(false);
+        countdownCanvas.SetActive(false);
+        tempoPracticeCanvas.SetActive(false);
+
+        countdownText.gameObject.SetActive(false);
+        acceptButton.SetActive(false);
+        drumObject.SetActive(false);
+
+        SetMovableObjectsActive(false);
     }
 }
